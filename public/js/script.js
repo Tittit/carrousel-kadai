@@ -10124,6 +10124,7 @@ return jQuery;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = Carousel;
 
 var _jquery = require('jquery');
 
@@ -10135,34 +10136,19 @@ var _events2 = _interopRequireDefault(_events);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var Carousel = function (_EventEmitter) {
-  _inherits(Carousel, _EventEmitter);
-
-  function Carousel() {
-    var opts = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    _classCallCheck(this, Carousel);
-
-    return _possibleConstructorReturn(this, (Carousel.__proto__ || Object.getPrototypeOf(Carousel)).call(this));
+/*
+export default class Carousel extends EventEmitter {
+  constructor(opts = {}) {
+    super();
   }
+}
+*/
 
-  return Carousel;
-}(_events2.default);
-
-exports.default = Carousel;
-
-
-(function () {
-  var PrevBtn = (0, _jquery2.default)("#list__01 .js-carousel-prev");
-  var NextBtn = (0, _jquery2.default)("#list__01 .js-carousel-next");
-  var ListWrap = (0, _jquery2.default)("#list__01 .carousel__list");
-  var List = (0, _jquery2.default)("#list__01 .carousel__list .carousel__item");
+function Carousel(id) {
+  var PrevBtn = (0, _jquery2.default)("#" + id + " .js-carousel-prev");
+  var NextBtn = (0, _jquery2.default)("#" + id + " .js-carousel-next");
+  var ListWrap = (0, _jquery2.default)("#" + id + " .carousel__list");
+  var List = (0, _jquery2.default)("#" + id + " .carousel__list .carousel__item");
   var CarouselNum = List.length; //7
   var CarouselWidth = List.width(); //500
   var ListWidth = CarouselNum * CarouselWidth; //3500
@@ -10204,56 +10190,117 @@ exports.default = Carousel;
     SlideNext();
     console.log(SlideCurrent);
   });
-})();
+}
 
-//下のカーネル
-(function () {
-  var PrevBtn = (0, _jquery2.default)("#list__02 .js-carousel-prev");
-  var NextBtn = (0, _jquery2.default)("#list__02 .js-carousel-next");
-  var ListWrap = (0, _jquery2.default)("#list__02 .carousel__list");
-  var List = (0, _jquery2.default)("#list__02 .carousel__list .carousel__item");
-  var CarouselNum = List.length; //4
-  var CarouselWidth = List.width(); //500
-  var ListWidth = CarouselNum * CarouselWidth; //2000
+var carousel01 = Carousel("list__01");
+var carousel02 = Carousel("list__02");
+/*
+function Person(gender) {
+    this.gender = gender;
+    alert('Person instantiated');
+}
 
-  var SlideCurrent = 0; //スライドに現在値
+var person1 = new Person('Male');
+var person2 = new Person('Female');
 
-  ListWrap.css("width", ListWidth + "px"); //carousel__item横並びしたときのwidth
+//display the person1 gender
+alert('person1 is a ' + person1.gender); // person1 is a Male
+*/
+
+/*
+(function(){
+  const PrevBtn = $("#list__01 .js-carousel-prev");
+  const NextBtn = $("#list__01 .js-carousel-next");
+  const ListWrap = $("#list__01 .carousel__list")
+  const List = $("#list__01 .carousel__list .carousel__item");
+  const CarouselNum = List.length; //7
+  const CarouselWidth = List.width(); //500
+  const ListWidth = CarouselNum * CarouselWidth;　//3500
+
+  let SlideCurrent = 0; //スライドに現在値
+
+  ListWrap.css("width",ListWidth+"px");　//carousel__item横並びしたときのwidth
 
   //戻るボタン押したら
-  var SlidePrev = function SlidePrev() {
-    if (SlideCurrent < 0) {
-      //0より小さくなったら」
-      SlideCurrent = CarouselNum - 1; //3番目に移動
+  const SlidePrev = function(){
+    if( SlideCurrent < 0 ){　//0より小さくなったら」
+      SlideCurrent = CarouselNum - 1;　//6番目に移動
     }
     ListWrap.stop().animate({
-      left: CarouselWidth * -SlideCurrent
-    }, 500);
-  };
+      left:CarouselWidth * -SlideCurrent
+    },500);
+  }
 
-  PrevBtn.click(function () {
+  PrevBtn.click(function(){
     SlideCurrent--;
     SlidePrev();
     console.log(SlideCurrent);
   });
 
   //次ボタン押したら
-  var SlideNext = function SlideNext() {
-    if (SlideCurrent > CarouselNum - 1) {
-      //3番目より大きくなったら
-      SlideCurrent = 0; //0番目に移動
+  const SlideNext = function(){
+    if( SlideCurrent > CarouselNum - 1){　//6番目より大きくなったら
+      SlideCurrent = 0;　//0番目に移動
     }
     ListWrap.stop().animate({
-      left: CarouselWidth * -SlideCurrent
-    }, 500);
-  };
+      left:CarouselWidth * -SlideCurrent
+    },500);
+  }
 
-  NextBtn.click(function () {
+  NextBtn.click(function(){
     SlideCurrent++;
     SlideNext();
     console.log(SlideCurrent);
   });
 })();
+
+
+(function(){
+  const PrevBtn = $("#list__02 .js-carousel-prev");
+  const NextBtn = $("#list__02 .js-carousel-next");
+  const ListWrap = $("#list__02 .carousel__list")
+  const List = $("#list__02 .carousel__list .carousel__item");
+  const CarouselNum = List.length; //4
+  const CarouselWidth = List.width(); //500
+  const ListWidth = CarouselNum * CarouselWidth;　//2000
+
+  let SlideCurrent = 0; //スライドに現在値
+
+  ListWrap.css("width",ListWidth+"px");　//carousel__item横並びしたときのwidth
+
+  //戻るボタン押したら
+  const SlidePrev = function(){
+    if( SlideCurrent < 0 ){　//0より小さくなったら」
+      SlideCurrent = CarouselNum - 1;　//3番目に移動
+    }
+    ListWrap.stop().animate({
+      left:CarouselWidth * -SlideCurrent
+    },500);
+  }
+
+  PrevBtn.click(function(){
+    SlideCurrent--;
+    SlidePrev();
+    console.log(SlideCurrent);
+  });
+
+  //次ボタン押したら
+  const SlideNext = function(){
+    if( SlideCurrent > CarouselNum - 1){　//3番目より大きくなったら
+      SlideCurrent = 0;　//0番目に移動
+    }
+    ListWrap.stop().animate({
+      left:CarouselWidth * -SlideCurrent
+    },500);
+  }
+
+  NextBtn.click(function(){
+    SlideCurrent++;
+    SlideNext();
+    console.log(SlideCurrent);
+  });
+})();
+*/
 
 },{"events":1,"jquery":2}],4:[function(require,module,exports){
 'use strict';

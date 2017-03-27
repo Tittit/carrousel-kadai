@@ -3,6 +3,7 @@ import Carousel from './lib/Carousel';
 
 const $carousel = $(".js-carousel");
 
+
 $carousel.each((i, elm) => {
     const $root = $(elm);
     const carousel = new Carousel({
