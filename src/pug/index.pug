@@ -1,0 +1,26 @@
+extends layout/DefaultLayout
+
+prepend ConfigBlock
+  - page_name = ''
+
+block ContentBlock
+    div.carousel.js-carousel
+        div.carousel__btn--left.js-carousel-prev ＜
+        ul.carousel__list#list__01
+            li.carousel__item.js-carousel-item 0.hoge
+            li.carousel__item.js-carousel-item 1.fuga
+            li.carousel__item.js-carousel-item 2.piyo
+            li.carousel__item.js-carousel-item 3.hage
+            li.carousel__item.js-carousel-item 4.hige
+            li.carousel__item.js-carousel-item 5.huge
+            li.carousel__item.js-carousel-item 6.hoge
+        div.carousel__btn--right.js-carousel-next ＞
+
+    div.carousel.js-carousel
+        div.carousel__btn--left.js-carousel-prev ＜
+        ul.carousel__list#list__02
+            li.carousel__item.js-carousel-item 0.hoge
+            li.carousel__item.js-carousel-item 1.fuga
+            li.carousel__item.js-carousel-item 2.piyo
+            li.carousel__item.js-carousel-item 3.hage
+        div.carousel__btn--right.js-carousel-next ＞

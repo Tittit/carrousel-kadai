@@ -1,0 +1,12 @@
+// reset css
+@import 'node_modules/reset-css/reset.css';
+
+// config
+@import 'variable', 'function', 'mixin', 'keyframes';
+
+// modules
+@import 'module/wrapper';
+@import 'module/carousel';
+
+// pages
+@import 'page/index';

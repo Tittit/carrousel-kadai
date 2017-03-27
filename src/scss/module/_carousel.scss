@@ -1,0 +1,147 @@
+$easeOutQuint: cubic-bezier(0.230, 1.000, 0.320, 1.000);
+
+.carousel {
+  $h: 250px;
+  width: 500px;
+  height: $h;
+  margin: 50px auto;
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  font-size: 30px;
+  line-height: $h;
+  font-family: Futura, YuGothic, sans-serif;
+  text-align: center;
+  cursor: default;
+  -webkit-user-select: none;
+}
+
+%carousel__btn {
+  width: 50%;
+  height: 100%;
+  padding: 0 1em;
+  position: absolute;
+  top: 0;
+  box-sizing: border-box;
+  z-index: 2;
+  cursor: pointer;
+  transition: all .2s;
+  
+  &:hover {
+    background-color: rgba(#fff, 0.3);
+  }
+  &.is-disabled {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.carousel__btn--left {
+  @extend %carousel__btn;
+  left: 0;
+  text-align: left;
+}
+
+.carousel__btn--right {
+  @extend %carousel__btn;
+  right: 0;
+  text-align: right;
+}
+
+.carousel__list {
+  list-style: none;
+  overflow: hidden;
+}
+
+.carousel__item {
+  position: absolute;
+  width: 500px;
+  height: 250px;
+  box-sizing: border-box;
+  
+  &:nth-child(1) {
+    background-color: #FFCC66;
+  }
+  &:nth-child(2) {
+    background-color: #FF6666;
+  }
+  &:nth-child(3) {
+    background-color: #CCFF66;
+  }
+  &:nth-child(4) {
+    background-color: #66CCFF;
+  }
+  &:nth-child(5) {
+    background-color: #FF6FCF;
+  }
+  &:nth-child(6) {
+    background-color: #66FFCC;
+  }
+  &:nth-child(7) {
+    background-color: #FFFF66;
+  }
+  
+  &[data-state="deactive"] {
+    display: none;
+  }
+
+  &[data-state="active"] {
+    display: block;
+  }
+
+  &[data-state="appear-left"] {
+    display: block;
+    animation: carrousel-appear-left 0.5s $easeOutQuint forwards;
+  }
+
+  &[data-state="appear-right"] {
+    display: block;
+    animation: carrousel-appear-right 0.5s $easeOutQuint forwards;
+  }
+
+  &[data-state="leave-left"] {
+    display: block;
+    animation: carrousel-leave-left 0.5s $easeOutQuint forwards;
+  }
+
+  &[data-state="leave-right"] {
+    display: block;
+    animation: carrousel-leave-right 0.5s $easeOutQuint forwards;
+  }
+}
+
+@keyframes carrousel-appear-left {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes carrousel-appear-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes carrousel-leave-left {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes carrousel-leave-right {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
