@@ -1,15 +1,76 @@
 import $ from 'jquery';
 import EventEmitter from 'events';
 
-/*
+(function() {
+    "use strict"
+
+    function carousel($next, $prev, $list, $item) {
+        let currentNum = 0;
+        const itemWidth = $item.width(); //liのwidth
+        const listNum = $item.length; //liの数
+        const listWidth = itemWidth * listNum;　//ulのwidth
+
+        $list.css("width", listWidth);//liの要素量分のwidth
+
+        function movementNext() {
+            $list.stop().animate({
+                left: -itemWidth * currentNum
+            }, 1000);
+        }
+
+        function movementPrev() {
+            $list.stop().animate({
+                left: -itemWidth * currentNum
+            }, 1000);
+        }
+
+        function next() {
+            currentNum++;
+            if (currentNum > listNum - 1) {
+                currentNum = 0;
+            }
+            movementNext();
+        }
+
+        function prev() {
+            currentNum--;
+            if (currentNum < 0) {
+                currentNum = listNum - 1;
+            }
+            movementPrev();
+        }
+
+        $next.click(e => {　//nextbtn押したらfun next発動
+            next();
+        });
+
+        $prev.click(e => { //nextprev押したらfun prev発動
+            prev();
+        });
+
+        const fnc = {
+            movementNext,
+            movementPrev,
+            next,
+            prev
+        };
+
+        return fnc;
+    }
+    var carousel1 = carousel($(".js-carousel-next").eq(0), $(".js-carousel-prev").eq(0), $(".carousel__list").eq(0), $(".carousel__list").eq(0).children("li"));
+    var carousel2 = carousel($(".js-carousel-next").eq(1), $(".js-carousel-prev").eq(1), $(".carousel__list").eq(1), $(".carousel__list").eq(1).children("li"));
+})();
+
+
+
+
 export default class Carousel extends EventEmitter {
   constructor(opts = {}) {
     super();
   }
 }
-*/
 
-
+/*
 export default function Carousel (id){
   const PrevBtn = $("#"+id+" .js-carousel-prev");
   const NextBtn = $("#"+id+" .js-carousel-next");
@@ -58,20 +119,8 @@ export default function Carousel (id){
 
 var carousel01 = Carousel("list__01");
 var carousel02 = Carousel("list__02");
-/*
-function Person(gender) {
-    this.gender = gender;
-    alert('Person instantiated');
-}
 
-var person1 = new Person('Male');
-var person2 = new Person('Female');
 
-//display the person1 gender
-alert('person1 is a ' + person1.gender); // person1 is a Male
-*/
-
-/*
 (function(){
   const PrevBtn = $("#list__01 .js-carousel-prev");
   const NextBtn = $("#list__01 .js-carousel-next");
