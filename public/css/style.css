@@ -93,7 +93,8 @@ table {
 .carousel__list {
   list-style: none;
   overflow: hidden;
-  position: absolute; }
+  position: absolute;
+  width: 9999px; }
 
 .carousel__item {
   float: left;
