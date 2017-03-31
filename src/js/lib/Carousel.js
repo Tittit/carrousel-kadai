@@ -1,42 +1,43 @@
 import $ from 'jquery';
-import EventEmitter from 'events'; //EventEmitterにeventsをいれる？
+import EventEmitter from 'events'; //EventEmitterにeventsをいれるss
 
-export default function carousel(obj){
-    let currentNum = 0;
-    const itemWidth = obj.$item.width();
-    const listNum = obj.$item.length;
+export default class Carousel{
 
-    function movement() {
-        obj.$list.stop().animate({
-            left: -itemWidth * currentNum
-        }, 1000);
-    }
+  //最初に実行される処理
+  constructor(obj){
+      this.currentNum = 0;
 
-    function next() {
-        currentNum++;
-        if (currentNum > listNum - 1) {
-            currentNum = 0;
-        }
-        movement();
-    }
+      this.$item = obj.$item;
+      this.$next = obj.$next;
+      this.$prev = obj.$prev;
+      this.$list = obj.$list;
 
-    function prev() {
-        currentNum--;
-        if (currentNum < 0) {
-            currentNum = listNum - 1;
-        }
-        movement();
-    }
+      this.itemWidth = this.$item.width();
+      this.listNum = this.$item.length;
+      this.$next.click(() => this.next());
+      this.$prev.click(() => this.prev());
+  }
 
-    obj.$next.click(next);
+  //固有で持たせることのできる処理
+  movement() {
+      this.$list.stop().animate({
+          left: -this.itemWidth * this.currentNum
+      }, 1000);
+  }
 
-    obj.$prev.click(prev);
+  next() {
+      this.currentNum++;
+      if (this.currentNum > this.listNum - 1) {
+          this.currentNum = 0;
+      }
+      this.movement();
+  }
 
-    const fnc = {
-        movement,
-        next,
-        prev
-    };
-
-    return fnc;
+  prev() {
+      this.currentNum--;
+      if (this.currentNum < 0) {
+          this.currentNum = this.listNum - 1;
+      }
+      this.movement();
+  }
 }

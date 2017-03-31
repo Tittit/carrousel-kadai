@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import carousel from './lib/Carousel'; //carouselにCarousel.jsをいれる
+import Carousel from './lib/Carousel'; //carouselにCarousel.jsをいれる
 
 const $carousel = $(".js-carousel");
 
@@ -13,6 +13,7 @@ $carousel.each((i, elm) => {
 				$list: $root.find(".carousel__list"),
     };
 
-    const carouselmove = new carousel(obj);
+    const carouselmove = new Carousel(obj);
+    carouselmove.prev();
 
 });

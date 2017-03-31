@@ -10124,7 +10124,8 @@ return jQuery;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.default = carousel;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _jquery = require('jquery');
 
@@ -10136,47 +10137,69 @@ var _events2 = _interopRequireDefault(_events);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//EventEmitterにeventsをいれる？
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function carousel(obj) {
-    var currentNum = 0;
-    var itemWidth = obj.$item.width();
-    var listNum = obj.$item.length;
+//EventEmitterにeventsをいれるss
 
-    function movement() {
-        obj.$list.stop().animate({
-            left: -itemWidth * currentNum
-        }, 1000);
+var Carousel = function () {
+
+    //最初に実行される処理
+    function Carousel(obj) {
+        var _this = this;
+
+        _classCallCheck(this, Carousel);
+
+        this.currentNum = 0;
+
+        this.$item = obj.$item;
+        this.$next = obj.$next;
+        this.$prev = obj.$prev;
+        this.$list = obj.$list;
+
+        this.itemWidth = this.$item.width();
+        this.listNum = this.$item.length;
+        this.$next.click(function () {
+            return _this.next();
+        });
+        this.$prev.click(function () {
+            return _this.prev();
+        });
     }
 
-    function next() {
-        currentNum++;
-        if (currentNum > listNum - 1) {
-            currentNum = 0;
+    //固有で持たせることのできる処理
+
+
+    _createClass(Carousel, [{
+        key: 'movement',
+        value: function movement() {
+            this.$list.stop().animate({
+                left: -this.itemWidth * this.currentNum
+            }, 1000);
         }
-        movement();
-    }
-
-    function prev() {
-        currentNum--;
-        if (currentNum < 0) {
-            currentNum = listNum - 1;
+    }, {
+        key: 'next',
+        value: function next() {
+            this.currentNum++;
+            if (this.currentNum > this.listNum - 1) {
+                this.currentNum = 0;
+            }
+            this.movement();
         }
-        movement();
-    }
+    }, {
+        key: 'prev',
+        value: function prev() {
+            this.currentNum--;
+            if (this.currentNum < 0) {
+                this.currentNum = this.listNum - 1;
+            }
+            this.movement();
+        }
+    }]);
 
-    obj.$next.click(next);
+    return Carousel;
+}();
 
-    obj.$prev.click(prev);
-
-    var fnc = {
-        movement: movement,
-        next: next,
-        prev: prev
-    };
-
-    return fnc;
-}
+exports.default = Carousel;
 
 },{"events":1,"jquery":2}],4:[function(require,module,exports){
 'use strict';
@@ -10206,6 +10229,7 @@ $carousel.each(function (i, elm) {
     };
 
     var carouselmove = new _Carousel2.default(obj);
+    carouselmove.prev();
 });
 
 },{"./lib/Carousel":3,"jquery":2}]},{},[4]);
